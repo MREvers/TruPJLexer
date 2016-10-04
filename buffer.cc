@@ -7,13 +7,14 @@ Buffer::Buffer (char *filename)
 	this->current_buffer_size = 0;
 	this->current_buffer_pos = 0;
 
-  // Open the file and fill the buffer.
-  source_file.open (filename);
-  if (source_file.fail()) {
-    // Failed to open source file.
-    cerr << "Can't open source file " << *filename << endl;
-    buffer_fatal_error();
-  }
+    // Open the file and fill the buffer.
+	source_file.open (filename);
+	if (source_file.fail()) 
+	{
+		// Failed to open source file.
+		cerr << "Can't open source file " << *filename << endl;
+		buffer_fatal_error();
+	}
 
   
 }
@@ -23,37 +24,38 @@ Buffer::~Buffer()
 	source_file.close();
 }
 
-// the logic to filter out the char should be here.
 char Buffer::next_char()
 {
-
+	// Treat comments as a single space.
 	if (this->get_this_char() == '#')
 	{
 		// Also count \n as new line because i don't know which it is.
 		while ( ( this->get_this_char() != '\r\n' ) &&
-			(this->get_this_char() != '\n'))
+			    ( this->get_this_char() != '\n'   ) )
 		{
 			pop_this_char();
 		}
 
 		this->last_read_char = ' ';
 	}
-	else if ( ( this->get_this_char() == ' '  ) ||
+	// Skip Passed empty space.
+	else if ( ( this->get_this_char() == ' '   ) ||
 		      ( this->get_this_char() == '\t'  ) ||
 		      ( this->get_this_char() == '\r\n') ||
-		(this->get_this_char() == '\n'))
+		      ( this->get_this_char() == '\n'  ) )
 	{
 
-		while ((this->get_this_char() == ' ') ||
-			(this->get_this_char() == '\t') ||
-			(this->get_this_char() == '\r\n') ||
-			(this->get_this_char() == '\n'))
+		while ( ( this->get_this_char() == ' '    ) ||
+			    ( this->get_this_char() == '\t'   ) ||
+			    ( this->get_this_char() == '\r\n' ) ||
+			    ( this->get_this_char() == '\n'   ) )
 		{
 			this->pop_this_char();
 		}
 
 		this->last_read_char = ' ';
 	}
+	// Regular char
 	else
 	{
 		this->last_read_char = this->pop_this_char();
@@ -75,13 +77,16 @@ char Buffer::get_this_char()
 
 char Buffer::pop_this_char()
 {
+	char cRetVal = this->get_this_char();
+	this->current_buffer_size--;
+	this->current_buffer_pos++;
+
+	// Load more chars if there are no characters in the buffer.
 	if (current_buffer_size < 1)
 	{
 		this->load_next_line();
 	}
-	char cRetVal = this->get_this_char();
-	this->current_buffer_size--;
-	this->current_buffer_pos++;
+
 	return cRetVal;
 }
 
@@ -101,11 +106,13 @@ void Buffer::load_next_line()
 	// Read 64 characters from the file stream at a time
 	source_file.read(buffer_buffer, read_size);
 
+	// Load the buffer_buffer into the buffer
 	for (int i = this->current_buffer_size; i < (read_size + this->current_buffer_size); ++i)
 	{
 		this->buffer[i] = buffer_buffer[i];
 	}
 
+	// Reset the buffer overhead
 	this->current_buffer_size += read_size;
 	this->current_buffer_pos = 0;
 }

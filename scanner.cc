@@ -36,6 +36,8 @@ Token *Scanner::next_token()
   }
 
   // First look for single char shit
+  // If its not single char, the build a string to represent it
+  //  so that it can be determined later
   if (next_char == ':')
   {
 	  szRetVal = ":";
@@ -188,8 +190,8 @@ Token *Scanner::next_token()
 	  lexeme = new Token();
   }
 
-
-  // It is 'or' 'and' a keyword, or an id
+  // Use the string to determine which long id it is
+  // It is 'or', 'and', a keyword, or an id
   if (lexeme == NULL)
   {
 	  if (szRetVal == "or")
@@ -265,124 +267,6 @@ Token *Scanner::next_token()
 
   return lexeme;
 }
-
-string Scanner::get_next_chunk() const
-{
-	// Shit will be separated by space, tab, or endline
-	string szRetVal = "";
-
-	char next_char;
-	next_char = this->buf->next_char();
-	// First look for single char shit
-	if (next_char == ':')
-	{
-		szRetVal = ":";
-		if ((next_char = this->buf->next_char()) == '=')
-		{
-			szRetVal += "=";
-		}
-		else
-		{
-			this->buf->unread_char(next_char);
-		}
-		
-	}
-	else if (next_char == ';')
-	{
-		szRetVal = ";";
-	}
-	else if (next_char == ',')
-	{
-		szRetVal = ",";
-	}
-	else if (next_char == '(')
-	{
-		szRetVal = "(";
-	}
-	else if (next_char == ')')
-	{
-		szRetVal = ")";
-	}
-	else if (next_char == '=')
-	{
-		szRetVal = "=";
-	}
-	else if (next_char == '$')
-	{
-		szRetVal = "$";
-	}
-	else if (next_char == '>')
-	{
-		szRetVal = ">";
-		if ((next_char = this->buf->next_char()) == '=')
-		{
-			szRetVal += "=";
-		}
-		else
-		{
-			this->buf->unread_char(next_char);
-		}
-	}
-	else if (next_char == '<')
-	{
-		szRetVal = "<";
-		if ((next_char = this->buf->next_char()) == '>')
-		{
-			szRetVal += ">";
-		}
-		else if (next_char == '=')
-		{
-			szRetVal += "=";
-		}
-		else
-		{
-			this->buf->unread_char(next_char);
-		}
-	}
-	else if (next_char == '+')
-	{
-		szRetVal = "+";
-	}
-	else if (next_char == '-')
-	{
-		szRetVal = "-";
-	}
-	else if (next_char == '*')
-	{
-		szRetVal = "*";
-	}
-	else if (next_char == '\\')
-	{
-		szRetVal = "\\";
-	}
-	else if (is_alpha(next_char))
-	{
-		szRetVal += next_char;
-		this->buf->next_char();
-		while (is_alphanum(next_char))
-		{
-			szRetVal += next_char;
-			next_char = this->buf->next_char();
-		}
-		this->buf->unread_char(next_char);
-	}
-	else if (is_digit(next_char))
-	{
-		szRetVal += next_char;
-		this->buf->next_char();
-		while (is_digit(next_char))
-		{
-			szRetVal += next_char;
-			next_char = this->buf->next_char();
-		}
-		this->buf->unread_char(next_char);
-	}
-
-
-	return szRetVal;
-}
-
-
 
 void Scanner::scanner_fatal_error(const string& message)
 {
