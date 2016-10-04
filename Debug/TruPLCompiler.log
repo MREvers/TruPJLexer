@@ -1,0 +1,10 @@
+﻿  reloptoken.cpp
+  numtoken.cpp
+  muloptoken.cpp
+  keywordtoken.cpp
+  idtoken.cpp
+  PuncToken.cpp
+  AddopToken.cpp
+  Generating Code...
+  TruPLCompiler.vcxproj -> C:\Users\Matthew\Documents\TruPL\Debug\TruPLCompiler.exe
+  TruPLCompiler.vcxproj -> C:\Users\Matthew\Documents\TruPL\Debug\TruPLCompiler.pdb (Full PDB)
