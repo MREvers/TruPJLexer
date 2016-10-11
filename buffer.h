@@ -30,7 +30,9 @@ class Buffer
   
   // Remove the next character from the buffer and
   // return it.
-  char next_char();
+  char current_char() const;
+
+  char pop_char();
   
   // Put a character back at the front of the buffer.
   void unread_char (char c);
@@ -40,8 +42,15 @@ class Buffer
 
   static const int MAX_BUFFER_SIZE = 1024;
 
+  // Distance of current_buffer_pos to the last valid char in the buffer
+  // Used to determine when to load more chars.
   int current_buffer_size;
+
+  // Character position in the buffer.
+  // Used to find the char in the buffer.
   int current_buffer_pos;
+
+  // List of chars currently in memory.
   char* buffer;
 
   char last_read_char;
@@ -64,7 +73,7 @@ class Buffer
   // Loads the next line of the file into the buffer
   void load_next_line();
 
-  char get_this_char();
+  char get_this_char() const;
   char pop_this_char();
   
 };

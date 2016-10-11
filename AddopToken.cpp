@@ -32,7 +32,20 @@ addop_attr_type  AddopToken::get_attribute()
 
 string* AddopToken::to_string() const
 {
-	return new string("Addop");
+   string szKWAddop = "";
+   if (this->attribute == ADDOP_ADD)
+   {
+      szKWAddop = "ADDOP_Add";
+   }
+   else if (this->attribute == ADDOP_OR)
+   {
+      szKWAddop = "ADDOP_Or";
+   }
+   else if (this->attribute == ADDOP_SUB)
+   {
+      szKWAddop = "ADDOP_Sub";
+   }
+	return new string(szKWAddop);
 }
 
 #endif

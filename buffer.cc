@@ -24,44 +24,14 @@ Buffer::~Buffer()
 	source_file.close();
 }
 
-char Buffer::next_char()
+char Buffer::current_char() const
 {
-	// Treat comments as a single space.
-	if (this->get_this_char() == '#')
-	{
-		// Also count \n as new line because i don't know which it is.
-		while ( ( this->get_this_char() != '\r\n' ) &&
-			    ( this->get_this_char() != '\n'   ) )
-		{
-			pop_this_char();
-		}
+	return get_this_char();
+}
 
-		this->last_read_char = ' ';
-	}
-	// Skip Passed empty space.
-	else if ( ( this->get_this_char() == ' '   ) ||
-		      ( this->get_this_char() == '\t'  ) ||
-		      ( this->get_this_char() == '\r\n') ||
-		      ( this->get_this_char() == '\n'  ) )
-	{
-
-		while ( ( this->get_this_char() == ' '    ) ||
-			    ( this->get_this_char() == '\t'   ) ||
-			    ( this->get_this_char() == '\r\n' ) ||
-			    ( this->get_this_char() == '\n'   ) )
-		{
-			this->pop_this_char();
-		}
-
-		this->last_read_char = ' ';
-	}
-	// Regular char
-	else
-	{
-		this->last_read_char = this->pop_this_char();
-	}
-
-	return last_read_char;
+char Buffer::pop_char()
+{
+	return pop_this_char();
 }
 
 void Buffer::unread_char(char c)
@@ -70,22 +40,22 @@ void Buffer::unread_char(char c)
 	buffer[--this->current_buffer_pos] = c;
 }
 
-char Buffer::get_this_char()
+char Buffer::get_this_char() const
 {
 	return buffer[current_buffer_pos];
 }
 
 char Buffer::pop_this_char()
 {
+   // Load more chars if there are no characters in the buffer.
+   if (current_buffer_size < 1)
+   {
+      this->load_next_line();
+   }
+
 	char cRetVal = this->get_this_char();
 	this->current_buffer_size--;
 	this->current_buffer_pos++;
-
-	// Load more chars if there are no characters in the buffer.
-	if (current_buffer_size < 1)
-	{
-		this->load_next_line();
-	}
 
 	return cRetVal;
 }
@@ -107,7 +77,7 @@ void Buffer::load_next_line()
 	source_file.read(buffer_buffer, read_size);
 
 	// Load the buffer_buffer into the buffer
-	for (int i = this->current_buffer_size; i < (read_size + this->current_buffer_size); ++i)
+	for (int i = this->current_buffer_size; i < read_size; ++i)
 	{
 		this->buffer[i] = buffer_buffer[i];
 	}

@@ -32,6 +32,19 @@ mulop_attr_type MulopToken::get_attribute()
 
 string* MulopToken::to_string() const
 {
+   string szKWMulop = "";
+   if (this->attribute == MULOP_AND)
+   {
+      szKWMulop = "Mulop_And";
+   }
+   else if (this->attribute == MULOP_DIV)
+   {
+      szKWMulop = "Mulop_Div";
+   }
+   else if (this->attribute == MULOP_MUL)
+   {
+      szKWMulop = "Mulop_Mul";
+   }
 	return new string("Mulop");
 }
 

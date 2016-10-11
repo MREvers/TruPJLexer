@@ -27,12 +27,12 @@ Token *Scanner::next_token()
   bool isCharS = false;
 
   char next_char;
-  next_char = this->buf->next_char();
+  next_char = this->next_char();
 
   // If we are on a blank/new line skip it
   while (next_char == ' ')
   {
-	  next_char = this->buf->next_char();
+	  next_char = this->next_char();
   }
 
   // First look for single char shit
@@ -41,7 +41,7 @@ Token *Scanner::next_token()
   if (next_char == ':')
   {
 	  szRetVal = ":";
-	  if ((next_char = this->buf->next_char()) == '=')
+	  if ((next_char = this->next_char()) == '=')
 	  {
 		  szRetVal += "=";
 
@@ -88,7 +88,7 @@ Token *Scanner::next_token()
   else if (next_char == '>')
   {
 	  szRetVal = ">";
-	  if ((next_char = this->buf->next_char()) == '=')
+	  if ((next_char = this->next_char()) == '=')
 	  {
 		  szRetVal += "=";
 
@@ -104,7 +104,7 @@ Token *Scanner::next_token()
   else if (next_char == '<')
   {
 	  szRetVal = "<";
-	  if ((next_char = this->buf->next_char()) == '>')
+	  if ((next_char = this->next_char()) == '>')
 	  {
 		  szRetVal += ">";
 
@@ -156,11 +156,11 @@ Token *Scanner::next_token()
   else if (is_alpha(next_char))
   {
 	  szRetVal += next_char;
-	  next_char = this->buf->next_char();
+	  next_char = this->next_char();
 	  while (is_alphanum(next_char))
 	  {
 		  szRetVal += next_char;
-		  next_char = this->buf->next_char();
+		  next_char = this->next_char();
 	  }
 	  if (next_char != ' ')
 	  {
@@ -172,11 +172,11 @@ Token *Scanner::next_token()
   else if (is_digit(next_char))
   {
 	  szRetVal += next_char;
-	  this->buf->next_char();
+	  this->next_char();
 	  while (is_digit(next_char))
 	  {
 		  szRetVal += next_char;
-		  next_char = this->buf->next_char();
+		  next_char = this->next_char();
 	  }
 	  if (next_char != ' ')
 	  {
@@ -264,8 +264,52 @@ Token *Scanner::next_token()
 	  }
   }
 
-
   return lexeme;
+}
+
+char Scanner::next_char() const
+{
+	char next_char = buf->current_char();
+
+	// Treat comments as a single space.
+	if (next_char == '#')
+	{
+		// Also count \n as new line because i don't know which it is.
+		while ( ( next_char != '\r\n' ) &&
+			     ( next_char != '\n'   ) )
+		{
+			buf->pop_char();
+         next_char = buf->current_char();
+		}
+
+		next_char = ' ';
+	}
+	// Skip Passed empty space.
+	else if ( ( next_char == ' '    ) ||
+		       ( next_char == '\t'   ) ||
+		       ( next_char == '\r\n' ) ||
+		       ( next_char == '\n'   ) )
+	{
+
+		while ( ( next_char == ' '    ) ||
+			     ( next_char == '\t'   ) ||
+			     ( next_char == '\r\n' ) ||
+			     ( next_char == '\n'   ) )
+		{
+			buf->pop_char();
+         next_char = buf->current_char();
+		}
+
+		next_char = ' ';
+	}
+	// Regular char
+	else
+	{
+		next_char = buf->pop_char();;
+	}
+
+	return next_char;
+	
 }
 
 void Scanner::scanner_fatal_error(const string& message)

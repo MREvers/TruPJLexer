@@ -59,7 +59,7 @@ class Scanner
      call this method.  It will print the mesg and exit. */
   void scanner_fatal_error(const string& mesg);
 
-  string get_next_chunk() const;
+  char next_char() const;
 
 };
 #endif
