@@ -30,7 +30,7 @@ class Buffer
   
   // Remove the next character from the buffer and
   // return it.
-  char current_char() const;
+  char current_char();
 
   char pop_char();
   
@@ -73,7 +73,7 @@ class Buffer
   // Loads the next line of the file into the buffer
   void load_next_line();
 
-  char get_this_char() const;
+  char get_this_char();
   char pop_this_char();
   
 };

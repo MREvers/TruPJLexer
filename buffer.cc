@@ -24,7 +24,7 @@ Buffer::~Buffer()
 	source_file.close();
 }
 
-char Buffer::current_char() const
+char Buffer::current_char()
 {
 	return get_this_char();
 }
@@ -40,8 +40,12 @@ void Buffer::unread_char(char c)
 	buffer[--this->current_buffer_pos] = c;
 }
 
-char Buffer::get_this_char() const
+char Buffer::get_this_char()
 {
+   if (current_buffer_size < 1)
+   {
+      this->load_next_line();
+   }
 	return buffer[current_buffer_pos];
 }
 
