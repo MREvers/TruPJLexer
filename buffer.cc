@@ -42,6 +42,7 @@ void Buffer::unread_char(char c)
 
 char Buffer::get_this_char()
 {
+   // Load more chars if there are no characters in the buffer.
    if (current_buffer_size < 1)
    {
       this->load_next_line();
@@ -51,12 +52,6 @@ char Buffer::get_this_char()
 
 char Buffer::pop_this_char()
 {
-   // Load more chars if there are no characters in the buffer.
-   if (current_buffer_size < 1)
-   {
-      this->load_next_line();
-   }
-
 	char cRetVal = this->get_this_char();
 	this->current_buffer_size--;
 	this->current_buffer_pos++;
