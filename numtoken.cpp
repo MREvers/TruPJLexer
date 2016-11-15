@@ -7,7 +7,7 @@ using namespace std;
 
 NumToken::NumToken()
 {
-	this->set_token_type(TOKEN_NUM);
+   this->set_token_type(TOKEN_NUM);
 }
 
 NumToken::~NumToken()
@@ -17,23 +17,23 @@ NumToken::~NumToken()
 
 NumToken::NumToken(const string& attr) : NumToken()
 {
-	
-	this->set_attribute(attr);
+
+   this->set_attribute(attr);
 }
 
 void NumToken::set_attribute(const string& attr)
 {
-	this->attribute = new string(attr);
+   this->attribute = new string(attr);
 }
 
 string* NumToken::get_attribute()
 {
-	return this->attribute;
+   return this->attribute;
 }
 
 string* NumToken::to_string() const
 {
-	return this->attribute;
+   return this->attribute;
 }
 
 #endif

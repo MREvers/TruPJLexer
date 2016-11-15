@@ -7,7 +7,7 @@ using namespace std;
 
 MulopToken::MulopToken()
 {
-	this->set_token_type(TOKEN_MULOP);
+   this->set_token_type(TOKEN_MULOP);
 }
 
 MulopToken::~MulopToken()
@@ -17,17 +17,17 @@ MulopToken::~MulopToken()
 
 MulopToken::MulopToken(mulop_attr_type attr) : MulopToken()
 {
-	this->set_attribute(attr);
+   this->set_attribute(attr);
 }
 
 void MulopToken::set_attribute(mulop_attr_type attr)
 {
-	this->attribute = attr;
+   this->attribute = attr;
 }
 
 mulop_attr_type MulopToken::get_attribute()
 {
-	return this->attribute;
+   return this->attribute;
 }
 
 string* MulopToken::to_string() const
@@ -45,7 +45,7 @@ string* MulopToken::to_string() const
    {
       szKWMulop = "Mulop_Mul";
    }
-	return new string("Mulop");
+   return new string("Mulop");
 }
 
 #endif

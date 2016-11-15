@@ -7,7 +7,7 @@ using namespace std;
 
 KeywordToken::KeywordToken()
 {
-	this->set_token_type(TOKEN_KEYWORD);
+   this->set_token_type(TOKEN_KEYWORD);
 }
 
 KeywordToken::~KeywordToken()
@@ -17,17 +17,17 @@ KeywordToken::~KeywordToken()
 
 KeywordToken::KeywordToken(keyword_attr_type   attr) : KeywordToken()
 {
-	this->set_attribute(attr);
+   this->set_attribute(attr);
 }
 
 void KeywordToken::set_attribute(keyword_attr_type   attr)
 {
-	this->attribute = attr;
+   this->attribute = attr;
 }
 
 keyword_attr_type  KeywordToken::get_attribute()
 {
-	return this->attribute;
+   return this->attribute;
 }
 
 string* KeywordToken::to_string() const
@@ -89,7 +89,7 @@ string* KeywordToken::to_string() const
    {
       szKWWord = "KW_While";
    }
-	return new string(szKWWord);
+   return new string(szKWWord);
 }
 
 #endif

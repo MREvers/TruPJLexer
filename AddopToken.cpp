@@ -7,7 +7,7 @@ using namespace std;
 
 AddopToken::AddopToken()
 {
-	this->set_token_type(TOKEN_ADDOP);
+   this->set_token_type(TOKEN_ADDOP);
 }
 
 AddopToken::~AddopToken()
@@ -17,17 +17,17 @@ AddopToken::~AddopToken()
 
 AddopToken::AddopToken(addop_attr_type   attr) : AddopToken()
 {
-	this->set_attribute(attr);
+   this->set_attribute(attr);
 }
 
 void AddopToken::set_attribute(addop_attr_type   attr)
 {
-	this->attribute = attr;
+   this->attribute = attr;
 }
 
 addop_attr_type  AddopToken::get_attribute()
 {
-	return this->attribute;
+   return this->attribute;
 }
 
 string* AddopToken::to_string() const
@@ -45,7 +45,7 @@ string* AddopToken::to_string() const
    {
       szKWAddop = "ADDOP_Sub";
    }
-	return new string(szKWAddop);
+   return new string(szKWAddop);
 }
 
 #endif

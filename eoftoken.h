@@ -9,14 +9,14 @@ using namespace std;
 
 class EofToken : public Token
 {
- public:
-  EofToken ();
-  ~EofToken ();
+public:
+   EofToken();
+   ~EofToken();
 
-  string *to_string() const;
+   string *to_string() const;
 
 };
 
 #endif
 
-  
+

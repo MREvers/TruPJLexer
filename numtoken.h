@@ -8,18 +8,18 @@ using namespace std;
 
 class NumToken : public Token
 {
- public:
-  NumToken();
-  NumToken(const string& attr);
-  ~NumToken();
+public:
+   NumToken();
+   NumToken(const string& attr);
+   ~NumToken();
 
-  string *get_attribute();
-  void set_attribute(const string& attr);
+   string *get_attribute();
+   void set_attribute(const string& attr);
 
-  string *to_string() const;
+   string *to_string() const;
 
- private:
-  string *attribute;
+private:
+   string *attribute;
 };
 
 #endif

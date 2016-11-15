@@ -8,18 +8,18 @@ using namespace std;
 
 class IdToken : public Token
 {
- public:
-  IdToken();
-  IdToken(const string& attr);
-  ~IdToken();
+public:
+   IdToken();
+   IdToken(const string& attr);
+   ~IdToken();
 
-  string *get_attribute();
-  void set_attribute(const string& attr);
+   string *get_attribute();
+   void set_attribute(const string& attr);
 
-  string *to_string() const;
+   string *to_string() const;
 
- private:
-  string *attribute;
+private:
+   string *attribute;
 };
 
 #endif
