@@ -11,7 +11,7 @@ int main ()
 
   char *filename;
 
-  filename = "T3.txt";
+  filename = "T5.txt";
 
   // Declare a Scanner object and a pointer to a Token object.
   Scanner s(filename);

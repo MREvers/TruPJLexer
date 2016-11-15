@@ -89,4 +89,5 @@ void Buffer::load_next_line()
 	// Reset the buffer overhead
 	this->current_buffer_size += read_size;
 	this->current_buffer_pos = 0;
+   delete [] buffer_buffer;
 }
