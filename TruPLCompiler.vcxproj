@@ -104,11 +104,13 @@
     <ClCompile Include="keywordtoken.cpp" />
     <ClCompile Include="muloptoken.cpp" />
     <ClCompile Include="numtoken.cpp" />
+    <ClCompile Include="parser.cc" />
     <ClCompile Include="PuncToken.cpp" />
     <ClCompile Include="reloptoken.cpp" />
     <ClCompile Include="scanner.cc" />
     <ClCompile Include="test_scanner.cc" />
     <ClCompile Include="token.cc" />
+    <ClCompile Include="truc.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="addoptoken.h" />
@@ -118,6 +120,7 @@
     <ClInclude Include="keywordtoken.h" />
     <ClInclude Include="muloptoken.h" />
     <ClInclude Include="numtoken.h" />
+    <ClInclude Include="parser.h" />
     <ClInclude Include="PuncToken.h" />
     <ClInclude Include="reloptoken.h" />
     <ClInclude Include="scanner.h" />

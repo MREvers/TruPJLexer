@@ -172,7 +172,7 @@ Token *Scanner::next_token()
    else if (is_digit(next_char))
    {
       szRetVal += next_char;
-      this->next_char();
+      next_char = this->next_char();
       while (is_digit(next_char))
       {
          szRetVal += next_char;

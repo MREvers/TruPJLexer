@@ -6,6 +6,7 @@
 /* A program to print all the TruPL tokens and their attributes in
    a file.
 */
+/*
 int main()
 {
 
@@ -44,3 +45,4 @@ int main()
 }
 
 
+*/
